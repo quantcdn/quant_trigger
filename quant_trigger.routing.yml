@@ -1,0 +1,42 @@
+entity.quant_trigger.collection:
+  path: '/admin/config/quant/triggers'
+  defaults:
+    _entity_list: 'quant_trigger'
+    _title: 'Quant triggers'
+  requirements:
+    _permission: 'administer quant triggers'
+
+entity.quant_trigger.add_form:
+  path: '/admin/config/quant/triggers/add'
+  defaults:
+    _entity_form: quant_trigger.add
+    _title: 'Add Quant trigger'
+  requirements:
+    _permission: 'administer quant triggers'
+
+entity.quant_trigger.edit_form:
+  path: '/admin/config/quant/triggers/{quant_trigger}'
+  defaults:
+    _entity_form: quant_trigger.edit
+    _title: 'Edit Quant trigger'
+  requirements:
+    _permission: 'administer quant triggers'
+
+entity.quant_trigger.delete_form:
+  path: '/admin/config/quant/triggers/{quant_trigger}/delete'
+  defaults:
+    _entity_form: quant_trigger.delete
+    _title: 'Edit Quant trigger'
+  requirements:
+    _permission: 'administer quant triggers'
+
+entity.quant_trigger_run.collection:
+  path: '/admin/config/quant/triggers/{quant_trigger}/runs'
+  defaults:
+    _controller: \Drupal\quant_trigger\Controller\Runs::view
+  requirements:
+    _permission: 'administer quant triggers'
+  options:
+    parameters:
+      quant_trigger:
+        type: entity:quant_trigger

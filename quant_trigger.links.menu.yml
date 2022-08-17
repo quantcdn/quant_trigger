@@ -1,0 +1,6 @@
+entity.quant_trigger.collection:
+  title: 'Quant triggers'
+  route_name: entity.quant_trigger.collection
+  description: 'Add and manage webhook triggers.'
+  parent: quant
+  weight: 99

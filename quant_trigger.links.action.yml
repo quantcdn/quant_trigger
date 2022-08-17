@@ -1,0 +1,11 @@
+entity.quant_trigger.add_form:
+  route_name: 'entity.quant_trigger.add_form'
+  title: 'Add trigger'
+  appears_on:
+    - entity.quant_trigger.collection
+
+entity.quant_trigger_runs.collection:
+  route_name: 'entity.quant_trigger_run.collection'
+  title: 'Trigger runs'
+  appears_on:
+    - entity.quant_trigger.edit_form

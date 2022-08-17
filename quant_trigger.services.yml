@@ -1,0 +1,8 @@
+services:
+  quant_trigger.service:
+    class: Drupal\quant_trigger\TriggerService
+    arguments:
+      - '@http_client'
+      - '@entity_type.manager'
+      - '@event_dispatcher'
+      - '@logger.factory'

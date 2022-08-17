@@ -1,0 +1,4 @@
+entity.quant_trigger.collection:
+  route_name: entity.quant_trigger.collection
+  title: 'Triggers'
+  base_route: entity.quant_trigger.collection

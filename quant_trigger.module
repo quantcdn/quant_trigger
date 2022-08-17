@@ -1,0 +1,74 @@
+<?php
+
+/**
+ * @file
+ * Contains quant_trigger.module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\quant_trigger\Event\TriggerEvent;
+
+/**
+ * Implements hook_entity_insert().
+ */
+function quant_trigger_entity_insert(EntityInterface $entity) {
+
+  // Do not run triggers for draft/preview states.
+  // Draft builds are to be triggered via the UI on demand.
+  if ($entity->getEntityTypeId() == 'node' && !$entity->isDefaultRevision()) {
+    return;
+  }
+
+  /** @var \Drupal\quant_trigger\TriggerService $trigger_service */
+  $trigger_service = \Drupal::service('quant_trigger.service');
+
+  $event = implode(':', ['entity', $entity->getEntityType()->id(), 'create']);
+  $triggers = $trigger_service->loadMultipleByEvent($event);
+
+  /** @var \Drupal\quant_trigger\Entity\QuantTrigger $trigger */
+  foreach ($triggers as $trigger) {
+    $trigger_event = new TriggerEvent($trigger, ['entity' => $entity, 'event' => $event]);
+    $trigger_service->send($trigger, $trigger_event);
+  }
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function quant_trigger_entity_update(EntityInterface $entity) {
+
+  // Do not run triggers for draft/preview states.
+  // Draft builds are to be triggered via the UI on demand.
+  if ($entity->getEntityTypeId() == 'node' && !$entity->isDefaultRevision()) {
+    return;
+  }
+
+  /** @var \Drupal\quant_trigger\TriggerService $trigger_service */
+  $trigger_service = \Drupal::service('quant_trigger.service');
+
+  $event = implode(':', ['entity', $entity->getEntityType()->id(), 'update']);
+  $triggers = $trigger_service->loadMultipleByEvent($event);
+
+  /** @var \Drupal\quant_trigger\Entity\QuantTrigger $trigger */
+  foreach ($triggers as $trigger) {
+    $trigger_event = new TriggerEvent($trigger, ['entity' => $entity, 'event' => $event]);
+    $trigger_service->send($trigger, $trigger_event);
+  }
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function quant_trigger_entity_delete(EntityInterface $entity) {
+  /** @var \Drupal\quant_trigger\TriggerService $trigger_service */
+  $trigger_service = \Drupal::service('quant_trigger.service');
+
+  $event = implode(':', ['entity', $entity->getEntityType()->id(), 'delete']);
+  $triggers = $trigger_service->loadMultipleByEvent($event);
+
+  /** @var \Drupal\quant_trigger\Entity\QuantTrigger $trigger */
+  foreach ($triggers as $trigger) {
+    $trigger_event = new TriggerEvent($trigger, ['entity' => $entity, 'event' => $event]);
+    $trigger_service->send($trigger, $trigger_event);
+  }
+}

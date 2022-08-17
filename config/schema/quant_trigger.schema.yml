@@ -1,0 +1,34 @@
+quant_trigger.quant_trigger.*:
+  type: config_entity
+  label: 'Quant Trigger config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string
+      label: 'UUID'
+    payload_url:
+      type: uri
+      label: 'Payload URL'
+    preview_url:
+      type: uri
+      label: 'Preview URL'
+    secret:
+      type: string
+      label: 'Secret'
+    method:
+      type: string
+      label: 'Method'
+    events:
+      type: text
+      label: 'Events'
+    payload:
+      type: text
+      label: 'Payload'
+    headers:
+      type: text
+      label: 'Headers'
