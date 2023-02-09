@@ -1,0 +1,19 @@
+{
+  "name": "quantcdn/quant_trigger",
+  "description": "Trigger webhooks based on entity events",
+  "type": "drupal-module",
+  "authors": [
+    {
+      "name": "Steve Worley",
+      "role": "Maintainer"
+    },
+    {
+      "name": "Stuart Rowlands",
+      "role": "Maintainer"
+    },
+    {
+      "name": "Kristen Pol",
+      "role": "Maintainer"
+    }
+  ]
+}
