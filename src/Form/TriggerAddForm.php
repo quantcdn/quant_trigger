@@ -72,7 +72,7 @@ class TriggerAddForm extends EntityForm {
       '#type' => 'url',
       '#title' => $this->t('Preview Domain URL'),
       '#attributes' => [
-        'placeholder' => $this->t('https://content-preview.dea.ga.gov.au'),
+        'placeholder' => $this->t('https://preview.example.com'),
       ],
       '#default_value' => $trigger->getPreviewUrl(),
       '#maxlength' => 255,
