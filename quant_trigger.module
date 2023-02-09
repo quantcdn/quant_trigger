@@ -9,12 +9,37 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\quant_trigger\Event\TriggerEvent;
 
 /**
+ * Implements hook_form_alter().
+ */
+function quant_trigger_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  // Only alter preview behaviour on the Flexible Page node type.
+  if ($form_id === 'node_flexible_page_edit_form') {
+
+    // Add a submit handler to open preview URL in new tab. For the existing
+    // preview button, we won't save the form data first.
+    //$form['actions']['preview']['#value'] = t('Preview Saved Revision');
+    //$form['actions']['preview']['#submit'][] = '\Drupal\quant_trigger\Controller\QuantPreview::redirectLivePreview';
+    //$form['actions']['preview']['#attributes'] = [
+      //'formtarget' => '_blank'
+    //];
+
+    // Create another preview button so that we can save the form data first and
+    // the preview page will show latest form data.
+    //$form['actions']['save_preview'] = $form['actions']['preview'];
+    //$form['actions']['save_preview']['#name'] = 'save_preview';
+    //$form['actions']['save_preview']['#value'] = t('Save and Preview Changes');
+    //$form['actions']['save_preview']['#weight'] = 10;
+  }
+}
+
+ /**
  * Implements hook_entity_insert().
  */
 function quant_trigger_entity_insert(EntityInterface $entity) {
 
   // Do not run triggers for draft/preview states.
   // Draft builds are to be triggered via the UI on demand.
+  // @fixme Comment out to test preview site gets built out.
   if ($entity->getEntityTypeId() == 'node' && !$entity->isDefaultRevision()) {
     return;
   }
@@ -39,6 +64,7 @@ function quant_trigger_entity_update(EntityInterface $entity) {
 
   // Do not run triggers for draft/preview states.
   // Draft builds are to be triggered via the UI on demand.
+  // @fixme Comment out to test preview site gets built out.
   if ($entity->getEntityTypeId() == 'node' && !$entity->isDefaultRevision()) {
     return;
   }
